@@ -17,7 +17,7 @@ app.use("/api/v1/sample", sampleRoute);
 
 //initialization
 const start = () => {
-  connectDB().then(() => {
+  connectDB(ENV.MONGO_CON).then(() => {
     console.log(`Database connected to ${ENV.MONGO_CON}`);
 
     app.listen(ENV.PORT, () => {
