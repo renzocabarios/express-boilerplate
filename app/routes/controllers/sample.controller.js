@@ -1,4 +1,4 @@
-import sampleService from "../services/sample.service";
+import sampleService from "../services/sample.service.js";
 
 const getAllSample = async (req, res) => {
   const samples = sampleService.getAll();
@@ -12,7 +12,7 @@ const getSampleById = async (req, res) => {
 };
 
 const addSample = async (req, res) => {
-  const sample = sampleService.addSample(req.body);
+  const sample = sampleService.add(req.body);
   res.send({ sample });
 };
 
@@ -28,10 +28,4 @@ const deleteSample = async (req, res) => {
   res.send({ sample });
 };
 
-export default {
-  getAllSample,
-  getSampleById,
-  addSample,
-  updateSample,
-  deleteSample,
-};
+export { getAllSample, getSampleById, addSample, updateSample, deleteSample };
