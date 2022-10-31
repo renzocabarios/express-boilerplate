@@ -1,7 +1,3 @@
-const CONST = {
-  MODEL: {
-    SAMPLE: "Sample",
-  },
-};
+import MODEL from "./model.js";
 
-export default CONST;
+export { MODEL };
