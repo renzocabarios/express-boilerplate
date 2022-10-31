@@ -4,7 +4,7 @@ import cors from "cors";
 
 import connectDB from "./app/db/index.js";
 import ENV from "./app/env/index.js";
-import sampleRoute from "./app/routes/sample.route.js";
+import sampleRoute from "./app/routes/v1/sample/sample.route.js";
 
 const app = express();
 
