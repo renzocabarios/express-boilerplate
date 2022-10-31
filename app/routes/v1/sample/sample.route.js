@@ -5,7 +5,7 @@ import {
   addSample,
   updateSample,
   deleteSample,
-} from "./controllers/sample.controller.js";
+} from "./sample.controller.js";
 
 const router = Router();
 router.route("/").get(getAllSample).post(addSample);

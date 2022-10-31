@@ -1,4 +1,4 @@
-import sampleModel from "../models/sample.model.js";
+import sampleModel from "./sample.model.js";
 
 const getAll = async () => {
   return await sampleModel.find();

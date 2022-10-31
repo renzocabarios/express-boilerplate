@@ -1,4 +1,4 @@
-import sampleService from "../services/sample.service.js";
+import sampleService from "./sample.service.js";
 
 const getAllSample = async (req, res) => {
   const samples = await sampleService.getAll();
