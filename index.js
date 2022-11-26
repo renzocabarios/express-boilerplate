@@ -1,10 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-
 import connectDB from "./app/db/index.js";
 import ENV from "./app/env/index.js";
-import sampleRoute from "./app/routes/v1/sample/sample.route.js";
+import { sampleRoute } from "./app/routes/v1/index.js";
 
 const app = express();
 

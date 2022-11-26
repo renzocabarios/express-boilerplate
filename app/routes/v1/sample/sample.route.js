@@ -1,18 +1,14 @@
 import { Router } from "express";
 import {
-  getAllSample,
-  getSampleById,
-  addSample,
-  updateSample,
-  deleteSample,
+  getAll,
+  getById,
+  add,
+  update,
+  deleteById,
 } from "./sample.controller.js";
 
 const router = Router();
-router.route("/").get(getAllSample).post(addSample);
-router
-  .route("/:id")
-  .get(getSampleById)
-  .patch(updateSample)
-  .delete(deleteSample);
+router.route("/").get(getAll).post(add);
+router.route("/:id").get(getById).patch(update).delete(deleteById);
 
 export default router;

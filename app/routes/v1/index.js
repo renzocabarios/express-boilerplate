@@ -1,3 +1,3 @@
-import sampleRoute from "./sample.route.js";
+import sampleRoute from "./sample/sample.route.js";
 
 export { sampleRoute };

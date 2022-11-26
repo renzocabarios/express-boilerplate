@@ -1,23 +1,23 @@
-import sampleModel from "./sample.model.js";
+import model from "./sample.model.js";
 
 const getAll = async () => {
-  return await sampleModel.find();
+  return await model.find({ deleted: false });
 };
 
-const getById = async (id) => {
-  return await sampleModel.findById({ _id: id });
+const getById = async (_id) => {
+  return await model.findOne({ _id, deleted: false });
 };
 
-const add = async (body) => {
-  return await sampleModel.create(body);
+const add = async (_body) => {
+  return await model.create(_body);
 };
 
-const update = async (id, body) => {
-  return await sampleModel.findByIdAndUpdate({ _id: id }, body);
+const update = async (_id, _body) => {
+  return await model.findByOnedAndUpdate({ _id }, _body);
 };
 
-const deleteById = async (id) => {
-  return await sampleModel.findByIdAndDelete({ _id: id });
+const deleteById = async (_id) => {
+  return await model.findByOnedAndUpdate({ _id, deleted: false });
 };
 
 export default { getAll, getById, add, update, deleteById };
