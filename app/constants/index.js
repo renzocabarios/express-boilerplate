@@ -1,3 +1,3 @@
-import MODEL from "./model.js";
+import RESOURCE from "./resource.js";
 
-export { MODEL };
+export { RESOURCE };
