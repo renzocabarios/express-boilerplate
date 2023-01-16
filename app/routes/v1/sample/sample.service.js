@@ -13,11 +13,11 @@ const add = async (_body) => {
 };
 
 const update = async (_id, _body) => {
-  return await model.findOnedAndUpdate({ _id }, _body);
+  return await model.findOneAndUpdate({ _id }, _body);
 };
 
 const deleteById = async (_id) => {
-  return await model.findOnedAndUpdate({ _id }, { deleted: false });
+  return await model.findOneAndUpdate({ _id }, { deleted: false });
 };
 
 export default { getAll, getById, add, update, deleteById };
