@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import connectDB from "./app/db/index.js";
 import ENV from "./app/env/index.js";
-import { sampleRoute } from "./app/routes/v1/index.js";
+import { sampleRoute, usersRoute } from "./app/routes/v1/index.js";
 
 const app = express();
 
@@ -13,6 +13,7 @@ app.use(cors());
 
 //routes
 app.use("/api/v1/sample", sampleRoute);
+app.use("/api/v1/users", usersRoute);
 
 //initialization
 const start = () => {
