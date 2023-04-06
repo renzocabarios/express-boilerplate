@@ -9,6 +9,10 @@ export const routes = [
     url: "/api/v1/users",
     route: V1.usersRoute,
   },
+  {
+    url: "/api/v1/auth",
+    route: V1.authRoute,
+  },
 ];
 
 export const addRoutes = (app) => {
