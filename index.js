@@ -6,8 +6,8 @@ import { addMiddlewares } from "./app/middlewares/index.js";
 
 const app = express();
 
-addRoutes(app);
 addMiddlewares(app);
+addRoutes(app);
 
 //initialization
 const start = () => {
