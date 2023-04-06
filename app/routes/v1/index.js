@@ -1,4 +1,4 @@
-import sampleRoute from "./sample/sample.route.js";
-import usersRoute from "./users/users.route.js";
+import sampleRoute from "./sample/route.js";
+import usersRoute from "./users/route.js";
 
-export { sampleRoute, usersRoute };
+export default { sampleRoute, usersRoute };
