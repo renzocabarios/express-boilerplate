@@ -1,4 +1,4 @@
-import model from "./sample.model.js";
+import model from "./model.js";
 
 const getAll = async () => {
   return await model.find({ deleted: false });
@@ -17,7 +17,7 @@ const update = async (_id, _body) => {
 };
 
 const deleteById = async (_id) => {
-  return await model.findOneAndUpdate({ _id }, { deleted: false });
+  return await model.findOneAndUpdate({ _id }, { deleted: true });
 };
 
 export default { getAll, getById, add, update, deleteById };

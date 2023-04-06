@@ -1,4 +1,4 @@
-import service from "./sample.service.js";
+import service from "./service.js";
 
 const getAll = async (_req, _res) => {
   const data = await service.getAll();
