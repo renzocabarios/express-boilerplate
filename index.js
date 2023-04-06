@@ -1,19 +1,13 @@
 import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
 import connectDB from "./app/db/index.js";
 import ENV from "./app/env/index.js";
-import { sampleRoute, usersRoute } from "./app/routes/v1/index.js";
+import { addRoutes } from "./app/routes/index.js";
+import { addMiddlewares } from "./app/middlewares/index.js";
 
 const app = express();
 
-// middlewares
-app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
-app.use(cors());
-
-//routes
-app.use("/api/v1/sample", sampleRoute);
-app.use("/api/v1/users", usersRoute);
+addRoutes(app);
+addMiddlewares(app);
 
 //initialization
 const start = () => {
