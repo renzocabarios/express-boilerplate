@@ -6,7 +6,7 @@ import {
   update,
   deleteById,
   changePassword,
-} from "./users.controller.js";
+} from "./controller.js";
 
 const router = Router();
 router.route("/").get(getAll).post(add);

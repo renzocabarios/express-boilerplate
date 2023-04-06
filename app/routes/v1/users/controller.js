@@ -1,4 +1,4 @@
-import service from "./users.service.js";
+import service from "./service.js";
 import bcrypt from "bcrypt";
 import ENV from "../../../env/index.js";
 
@@ -25,7 +25,8 @@ const add = async (_req, _res) => {
 };
 
 const update = async (_req, _res) => {
-  const { id, password, ...res } = _req.params;
+  const { id } = _req.params;
+  const { password, ...res } = _req.body;
   const data = await service.update(id, res);
   _res.send({
     data: [data],
@@ -35,7 +36,8 @@ const update = async (_req, _res) => {
 };
 
 const changePassword = async (_req, _res) => {
-  const { id, password } = _req.params;
+  const { id } = _req.params;
+  const { password, ...res } = _req.body;
   const hashed = await bcrypt.hash(password, ENV.HASH_SALT);
   const data = await service.update(id, { password: hashed });
   _res.send({
