@@ -1,34 +1,37 @@
 import service from "./service.js";
-import users from "../users/service.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import ENV from "../../../env/index.js";
 import mongoose from "mongoose";
-import { transaction } from "../../../utils/index.js";
+import {
+  generateAccess,
+  generateRefresh,
+  transaction,
+} from "../../../utils/index.js";
 
 const authenticate = async (_req, _res) => {
-  // const { email, password } = _req.body;
-  // const data = await service.getByEmail(email);
+  const { email, password } = _req.body;
+  const data = await service.getByEmail(email);
 
-  // if (!data) {
-  //   _res.send({ data: [], status: "fail", message: "User not found" });
-  //   return;
-  // }
+  if (!data) {
+    _res.send({ data: [], status: "fail", message: "User not found" });
+    return;
+  }
 
-  // if (!(await bcrypt.compare(password, data.password))) {
-  //   _res.send({ data: [], status: "fail", message: "Password not match" });
-  //   return;
-  // }
-  // _res.send({
-  //   data: [data],
-  //   status: "success",
-  //   message: "Authenticate user success",
-  //   meta: {
-  //     token: jwt.sign({ id: data._id }, ENV.JWT_KEY, { expiresIn: "1y" }),
-  //   },
-  // });
-  next();
+  if (!(await bcrypt.compare(password, data.password))) {
+    _res.send({ data: [], status: "fail", message: "Password not match" });
+    return;
+  }
+  _res.send({
+    data: [data],
+    status: "success",
+    message: "Authenticate user success",
+    meta: {
+      access: generateAccess({ id: data._id }),
+      refresh: generateRefresh({ id: data._id }),
+    },
+  });
 };
+
 const getAll = async (_req, _res) => {
   const data = await service.getAll();
   _res.send({ data, status: "success", message: "Get auth success" });
@@ -78,7 +81,6 @@ const changePassword = async (_req, _res) => {
 
 const removeOne = async (_req, _res) => {
   const session = await mongoose.startSession();
-
   const { id } = _req.params;
   _res.send(
     await transaction(
