@@ -1,3 +1,5 @@
+import generateAccess from "./generateAccess.js";
+
 export default async (session, operations, action) => {
   let data;
   return await session
@@ -10,6 +12,9 @@ export default async (session, operations, action) => {
         data,
         status: "success",
         message: `${action} success`,
+        meta: {
+          access: generateAccess(),
+        },
       };
     })
     .catch((e) => {
@@ -17,6 +22,9 @@ export default async (session, operations, action) => {
         data: [],
         status: "fail",
         message: `${e} failed`,
+        meta: {
+          access: generateAccess(),
+        },
       };
     })
     .finally(() => {
