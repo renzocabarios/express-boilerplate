@@ -26,8 +26,8 @@ const authenticate = async (_req, _res) => {
     status: "success",
     message: "Authenticate user success",
     meta: {
-      access: generateAccess({ id: data._id }),
-      refresh: generateRefresh({ id: data._id }),
+      access: generateAccess({}),
+      refresh: generateRefresh({}),
     },
   });
 };
