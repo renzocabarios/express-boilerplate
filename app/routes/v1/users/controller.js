@@ -41,18 +41,6 @@ const update = async (_req, _res) => {
   );
 };
 
-const changePassword = async (_req, _res) => {
-  const { id } = _req.params;
-  const { password } = _req.body;
-  const hashed = await bcrypt.hash(password, ENV.HASH_SALT);
-  const data = await service.update(id, { password: hashed });
-  _res.send({
-    data: [data],
-    status: "success",
-    message: "Change password success",
-  });
-};
-
 const removeOne = async (_req, _res) => {
   const session = await mongoose.startSession();
 
@@ -68,4 +56,4 @@ const removeOne = async (_req, _res) => {
   );
 };
 
-export { getAll, add, update, removeOne, changePassword };
+export { getAll, add, update, removeOne };
