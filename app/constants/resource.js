@@ -1,4 +1,8 @@
 export default {
   SAMPLE: "Sample",
-  USERS: "Users",
+  AUTH: "Auth",
+  USERS: {
+    DEFAULT: "Users",
+    ADMIN: "Admin",
+  },
 };
