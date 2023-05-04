@@ -20,4 +20,8 @@ const removeOne = async (filter, session) => {
   );
 };
 
-export default { getAll, add, update, removeOne };
+const getByEmail = async (email) => {
+  return await model.findOne({ email, deleted: false });
+};
+
+export default { getAll, add, update, removeOne, getByEmail };
