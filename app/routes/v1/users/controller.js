@@ -1,43 +1,49 @@
 import service from "./service.js";
 import bcrypt from "bcrypt";
 import ENV from "../../../env/index.js";
+import { transaction } from "../../../utils/index.js";
+import mongoose from "mongoose";
+import auth from "../auth/service.js";
 
 const getAll = async (_req, _res) => {
   const data = await service.getAll();
   _res.send({ data, status: "success", message: "Get user success" });
 };
 
-const getById = async (_req, _res) => {
-  const { id } = _req.params;
-  const data = await service.getById(id);
-  _res.send({ data: [data], status: "success", message: "Get user success" });
-};
-
 const add = async (_req, _res) => {
-  const { password, ...res } = _req.body;
+  const session = await mongoose.startSession();
+  const { email, password, ...res } = _req.body;
   const hashed = await bcrypt.hash(password, ENV.HASH_SALT);
-  const data = await service.add({ password: hashed, res });
-  _res.send({
-    data: [data],
-    status: "success",
-    message: "Create user success",
-  });
+  _res.send(
+    await transaction(
+      session,
+      async () => {
+        await auth.add({ email, password: hashed }, session);
+        return await service.add({ ...res }, session);
+      },
+      "Create user"
+    )
+  );
 };
 
 const update = async (_req, _res) => {
+  const session = await mongoose.startSession();
   const { id } = _req.params;
   const { password, ...res } = _req.body;
-  const data = await service.update(id, res);
-  _res.send({
-    data: [data],
-    status: "success",
-    message: "Update user success",
-  });
+  _res.send(
+    await transaction(
+      session,
+      async () => {
+        return await service.update({ _id: id }, res, session);
+      },
+      "Update user"
+    )
+  );
 };
 
 const changePassword = async (_req, _res) => {
   const { id } = _req.params;
-  const { password, ...res } = _req.body;
+  const { password } = _req.body;
   const hashed = await bcrypt.hash(password, ENV.HASH_SALT);
   const data = await service.update(id, { password: hashed });
   _res.send({
@@ -47,14 +53,19 @@ const changePassword = async (_req, _res) => {
   });
 };
 
-const deleteById = async (_req, _res) => {
+const removeOne = async (_req, _res) => {
+  const session = await mongoose.startSession();
+
   const { id } = _req.params;
-  const data = await service.deleteById(id);
-  _res.send({
-    data: [data],
-    status: "success",
-    message: "Delete user success",
-  });
+  _res.send(
+    await transaction(
+      session,
+      async () => {
+        return await service.removeOne({ _id: id }, session);
+      },
+      "Delete user"
+    )
+  );
 };
 
-export { getAll, getById, add, update, deleteById, changePassword };
+export { getAll, add, update, removeOne, changePassword };

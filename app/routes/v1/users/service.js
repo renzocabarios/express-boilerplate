@@ -1,23 +1,28 @@
 import model from "./model.js";
+import { RESOURCE } from "../../../constants/index.js";
+import admin from "./discriminators/admin.model.js";
 
 const getAll = async () => {
   return await model.find({ deleted: false });
 };
 
-const getById = async (_id) => {
-  return await model.findOne({ _id, deleted: false });
+const add = async (_body, session) => {
+  if (_body.type === RESOURCE.USERS.ADMIN) {
+    return await admin.create([_body], { session });
+  }
+  return await model.create([_body], { session });
 };
 
-const add = async (_body) => {
-  return await model.create(_body);
+const update = async (filter, _body, session) => {
+  return await model.findOneAndUpdate(filter, _body, { new: true, session });
 };
 
-const update = async (_id, _body) => {
-  return await model.findOneAndUpdate({ _id }, _body);
+const removeOne = async (filter, session) => {
+  return await model.findOneAndUpdate(
+    filter,
+    { deleted: true },
+    { new: true, session }
+  );
 };
 
-const deleteById = async (_id) => {
-  return await model.findOneAndUpdate({ _id }, { deleted: true });
-};
-
-export default { getAll, getById, add, update, deleteById };
+export default { getAll, add, update, removeOne };
